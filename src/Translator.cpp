@@ -34,7 +34,7 @@ xed_encoder_operand_t OperandToXed(InstOperand* Operand)
         // See xed_mem_bisd @ xed-encoder-hl.h
         o.type      = XED_ENCODER_OPERAND_TYPE_MEM;
         o.u.mem.seg = RegToXed(Operand->Segment);
-        o.width     = bitsize;
+        o.width_bits = bitsize;
 
         if(Operand->Mem.Base)
             o.u.mem.base = RegToXed(Operand->Mem.BaseVal);
@@ -48,7 +48,7 @@ xed_encoder_operand_t OperandToXed(InstOperand* Operand)
         if(Operand->Mem.Disp)
         {
             o.u.mem.disp.displacement       = Operand->Mem.DispVal;
-            o.u.mem.disp.displacement_width = OpsizeToBits(Operand->Mem.DispWidth);
+            o.u.mem.disp.displacement_bits = OpsizeToBits(Operand->Mem.DispWidth);
         }
 
         return o;
@@ -75,9 +75,9 @@ void InstructionToXed(Inst* Instruction, xed_state_t Mode, xed_encoder_instructi
     // Apply prefixes
     switch(Instruction->Prefix)
     {
-    case PREFIX_LOCK:
-        xed_lock(XedInst);
-        break;
+	case PREFIX_LOCK:
+		//xed_lock(XedInst);
+		break;
     case PREFIX_REP:
         xed_rep(XedInst);
         break;
