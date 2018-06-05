@@ -16,6 +16,7 @@ Currently finished:
 
 Todo:
 - Handle instructions with more than two operands correctly
+- REP, REPN - broken after update to XED 2018
 
 Currently the parser can be considered reasonably fast, parsing about 
 200,000 instructions in 1.5 seconds.
