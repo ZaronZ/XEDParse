@@ -1,54 +1,40 @@
-/*BEGIN_LEGAL
-Intel Open Source License
+/*BEGIN_LEGAL 
 
-Copyright (c) 2002-2015 Intel Corporation. All rights reserved.
+Copyright (c) 2018 Intel Corporation
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are
-met:
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-Redistributions of source code must retain the above copyright notice,
-this list of conditions and the following disclaimer.  Redistributions
-in binary form must reproduce the above copyright notice, this list of
-conditions and the following disclaimer in the documentation and/or
-other materials provided with the distribution.  Neither the name of
-the Intel Corporation nor the names of its contributors may be used to
-endorse or promote products derived from this software without
-specific prior written permission.
+      http://www.apache.org/licenses/LICENSE-2.0
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE INTEL OR
-ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  
 END_LEGAL */
 
-#if !defined(_XED_PRINT_INFO_H_)
-# define _XED_PRINT_INFO_H_
+#if !defined(XED_PRINT_INFO_H)
+# define XED_PRINT_INFO_H
 
 #include "xed-types.h"
 #include "xed-decoded-inst.h"
 #include "xed-disas.h" // callback function type
-#include "xed-syntax-enum.h"
+#include "xed-syntax-enum.h" 
 #include "xed-format-options.h"
 
 /// @ingroup PRINT
 /// This contains the information used by the various disassembly printers.
 /// Call xed_init_print_info to initialize the fields.  Then change the
 /// required and optional fields when required.
-typedef struct
-{
+typedef struct {
 
     /////////////////////////////////////////
     // REQUIRED FIELDS - users should set these
     /////////////////////////////////////////
-
+    
     /// the decoded instruction to print
     const xed_decoded_inst_t* p;
 
@@ -61,7 +47,7 @@ typedef struct
     /////////////////////////////////////////
     // OPTIONAL FIELDS - user can set these
     /////////////////////////////////////////
-
+    
     /// program counter location. Must be zero if not used.  (Sometimes
     /// instructions are disassembled in a temporary buffer at a different
     /// location than where they may or will exist in memory).
@@ -72,32 +58,35 @@ typedef struct
     xed_disassembly_callback_fn_t disassembly_callback;
 
     /// passed to disassembly callback. Can be zero if not used.
-    void* context;
+    void* context; 
 
     /// default is Intel-syntax (dest on left)
-    xed_syntax_enum_t syntax;
+    xed_syntax_enum_t syntax; 
 
     /// 1=indicated the format_options field is valid, 0=use default
-    /// formating options from xed_format_set_options().
-    int format_options_valid;
+    /// formatting options from xed_format_set_options().
+    int format_options_valid;  
     xed_format_options_t format_options;
 
-
+    
     /////////////////////////////////////////
     // NONPUBLIC FIELDS - Users should not use these!
     /////////////////////////////////////////
 
     /// internal, do not use
     xed_bool_t emitted;
-
+    
     /// internal, do not use
     unsigned int operand_indx;
-
+    
     /// internal, do not use
     unsigned int skip_operand;
 
     /// internal, do not use
     xed_reg_enum_t extra_index_operand; // for MPX
+
+    /// internal, do not use
+    xed_bool_t implicit;
 
 } xed_print_info_t;
 

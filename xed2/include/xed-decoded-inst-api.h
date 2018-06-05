@@ -1,38 +1,25 @@
-/*BEGIN_LEGAL
-Intel Open Source License
+/*BEGIN_LEGAL 
 
-Copyright (c) 2002-2015 Intel Corporation. All rights reserved.
+Copyright (c) 2018 Intel Corporation
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are
-met:
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-Redistributions of source code must retain the above copyright notice,
-this list of conditions and the following disclaimer.  Redistributions
-in binary form must reproduce the above copyright notice, this list of
-conditions and the following disclaimer in the documentation and/or
-other materials provided with the distribution.  Neither the name of
-the Intel Corporation nor the names of its contributors may be used to
-endorse or promote products derived from this software without
-specific prior written permission.
+      http://www.apache.org/licenses/LICENSE-2.0
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE INTEL OR
-ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  
 END_LEGAL */
 /// @file xed-decoded-inst-api.h
-///
+/// 
 
-#if !defined(_XED_DECODED_INST_API_H_)
-# define _XED_DECODED_INST_API_H_
+#if !defined(XED_DECODED_INST_API_H)
+# define XED_DECODED_INST_API_H
 
 #include "xed-decoded-inst.h"
 #include "xed-operand-accessors.h"
@@ -49,16 +36,14 @@ END_LEGAL */
 /// @ingroup DEC
 /// Return true if the instruction is valid
 static XED_INLINE xed_bool_t
-xed_decoded_inst_valid(const xed_decoded_inst_t* p)
-{
-    return XED_STATIC_CAST(xed_bool_t, (p->_inst != 0));
+xed_decoded_inst_valid(const xed_decoded_inst_t* p ) {
+    return XED_STATIC_CAST(xed_bool_t,(p->_inst != 0));
 }
 /// @ingroup DEC
 /// Return the #xed_inst_t structure for this instruction. This is the
 /// route to the basic operands form information.
 static XED_INLINE const xed_inst_t*
-xed_decoded_inst_inst(const xed_decoded_inst_t* p)
-{
+xed_decoded_inst_inst( const xed_decoded_inst_t* p) {
     return p->_inst;
 }
 
@@ -66,37 +51,33 @@ xed_decoded_inst_inst(const xed_decoded_inst_t* p)
 /// @ingroup DEC
 /// Return the instruction #xed_category_enum_t enumeration
 static XED_INLINE xed_category_enum_t
-xed_decoded_inst_get_category(const xed_decoded_inst_t* p)
-{
+xed_decoded_inst_get_category(const xed_decoded_inst_t* p) {
     xed_assert(p->_inst != 0);
     return xed_inst_category(p->_inst);
 }
 /// @ingroup DEC
 /// Return the instruction #xed_extension_enum_t enumeration
 static XED_INLINE xed_extension_enum_t
-xed_decoded_inst_get_extension(const xed_decoded_inst_t* p)
-{
+xed_decoded_inst_get_extension( const xed_decoded_inst_t* p) {
     xed_assert(p->_inst != 0);
     return xed_inst_extension(p->_inst);
 }
 /// @ingroup DEC
 /// Return the instruction #xed_isa_set_enum_t enumeration
 static XED_INLINE xed_isa_set_enum_t
-xed_decoded_inst_get_isa_set(xed_decoded_inst_t const* const p)
-{
+xed_decoded_inst_get_isa_set(xed_decoded_inst_t const* const p) {
     xed_assert(p->_inst != 0);
     return xed_inst_isa_set(p->_inst);
 }
 /// @ingroup DEC
 /// Return the instruction #xed_iclass_enum_t enumeration.
 static XED_INLINE xed_iclass_enum_t
-xed_decoded_inst_get_iclass(const xed_decoded_inst_t* p)
-{
+xed_decoded_inst_get_iclass( const xed_decoded_inst_t* p){
     xed_assert(p->_inst != 0);
     return xed_inst_iclass(p->_inst);
 }
 
-/// @name xed_decoded_inst_t Attirbutes and properties
+/// @name xed_decoded_inst_t Attributes and properties
 //@{
 /// @ingroup DEC
 /// Returns 1 if the attribute is defined for this instruction.
@@ -153,27 +134,25 @@ xed_decoded_inst_get_nprefixes(xed_decoded_inst_t* p);
 //@}
 
 
-/// @name xed_decoded_inst_t Operands
+/// @name xed_decoded_inst_t Operands 
 //@{
 /// @ingroup DEC
 /// Obtain a constant pointer to the operands
-static XED_INLINE const xed_operand_values_t*
-xed_decoded_inst_operands_const(const xed_decoded_inst_t* p)
-{
+static XED_INLINE const xed_operand_values_t* 
+xed_decoded_inst_operands_const(const xed_decoded_inst_t* p) {
     return p;
 }
 /// @ingroup DEC
 /// Obtain a non-constant pointer to the operands
-static XED_INLINE xed_operand_values_t*
-xed_decoded_inst_operands(xed_decoded_inst_t* p)
-{
+static XED_INLINE xed_operand_values_t* 
+xed_decoded_inst_operands(xed_decoded_inst_t* p) {
     return p;
 }
 
 /// Return the length in bits of the operand_index'th operand.
 /// @ingroup DEC
 XED_DLL_EXPORT unsigned int
-xed_decoded_inst_operand_length_bits(const xed_decoded_inst_t* p,
+xed_decoded_inst_operand_length_bits(const xed_decoded_inst_t* p, 
                                      unsigned int operand_index);
 
 
@@ -181,15 +160,14 @@ xed_decoded_inst_operand_length_bits(const xed_decoded_inst_t* p,
 /// operand.  Use #xed_decoded_inst_operand_length_bits() instead.
 /// @ingroup DEC
 XED_DLL_EXPORT unsigned int
-xed_decoded_inst_operand_length(const xed_decoded_inst_t* p,
+xed_decoded_inst_operand_length(const xed_decoded_inst_t* p, 
                                 unsigned int operand_index);
 
 
 /// Return the number of operands
 /// @ingroup DEC
 static XED_INLINE unsigned int
-xed_decoded_inst_noperands(const xed_decoded_inst_t* p)
-{
+xed_decoded_inst_noperands(const xed_decoded_inst_t* p) {
     unsigned int noperands = xed_inst_noperands(xed_decoded_inst_inst(p));
     return noperands;
 }
@@ -198,14 +176,14 @@ xed_decoded_inst_noperands(const xed_decoded_inst_t* p)
 /// Return the number of element in the operand (for SSE and AVX operands)
 /// @ingroup DEC
 XED_DLL_EXPORT unsigned int
-xed_decoded_inst_operand_elements(const xed_decoded_inst_t* p,
+xed_decoded_inst_operand_elements(const xed_decoded_inst_t* p, 
                                   unsigned int operand_index);
 
 /// Return the size of an element in bits  (for SSE and AVX operands)
 /// @ingroup DEC
 XED_DLL_EXPORT unsigned int
-xed_decoded_inst_operand_element_size_bits(const xed_decoded_inst_t* p,
-        unsigned int operand_index);
+xed_decoded_inst_operand_element_size_bits(const xed_decoded_inst_t* p, 
+                                           unsigned int operand_index);
 
 /// Return the type of an element of type #xed_operand_element_type_enum_t
 /// (for SSE and AVX operands)
@@ -289,20 +267,19 @@ xed_decoded_inst_zero_keep_mode_from_operands(
     xed_decoded_inst_t* p,
     const xed_operand_values_t* operands);
 
-/// @name xed_decoded_inst_t Length
+/// @name xed_decoded_inst_t Length 
 //@{
 /// @ingroup DEC
 /// Return the length of the decoded  instruction in bytes.
 static XED_INLINE xed_uint_t
-xed_decoded_inst_get_length(const xed_decoded_inst_t* p)
-{
+xed_decoded_inst_get_length(const xed_decoded_inst_t* p) {  
     return p->_decoded_length;
 }
 
 //@}
 
 
-/// @name xed_decoded_inst_t get Byte
+/// @name xed_decoded_inst_t get Byte 
 //@{
 /// @ingroup DEC
 /// Read itext byte.
@@ -322,29 +299,30 @@ xed_decoded_inst_get_byte(const xed_decoded_inst_t* p, xed_uint_t byte_index)
 /// Returns 16/32/64 indicating the machine mode with in bits. This is
 /// derived from the input mode information.
 static XED_INLINE xed_uint_t
-xed_decoded_inst_get_machine_mode_bits(const xed_decoded_inst_t* p)
-{
+xed_decoded_inst_get_machine_mode_bits(const xed_decoded_inst_t* p) {
     xed_uint8_t mode = xed3_operand_get_mode(p);
-    if(mode == 2) return 64;
-    if(mode == 1) return 32;
+    if (mode == 2) return 64;
+    if (mode == 1) return 32;
     return 16;
 }
 /// @ingroup DEC
 /// Returns 16/32/64 indicating the stack addressing mode with in
 /// bits. This is derived from the input mode information.
 static XED_INLINE xed_uint_t
-xed_decoded_inst_get_stack_address_mode_bits(const xed_decoded_inst_t* p)
-{
+xed_decoded_inst_get_stack_address_mode_bits(const xed_decoded_inst_t* p) {
     xed_uint8_t smode = xed3_operand_get_smode(p);
-    if(smode == 2) return 64;
-    if(smode == 1) return 32;
+    if (smode == 2) return 64;
+    if (smode == 1) return 32;
     return 16;
 }
 
 /// Returns the operand width in bits: 8/16/32/64. This is different than
 /// the #xed_operand_values_get_effective_operand_width() which only
 /// returns 16/32/64. This factors in the BYTEOP attribute when computing
-/// its return value. This is a convenience function.
+/// its return value. This function provides a information for that is only
+/// useful for (scalable) GPR-operations. Individual operands have more
+/// specific information available from
+/// #xed_decoded_inst_operand_element_size_bits()
 /// @ingroup DEC
 XED_DLL_EXPORT xed_uint32_t
 xed_decoded_inst_get_operand_width(const xed_decoded_inst_t* p);
@@ -353,8 +331,7 @@ xed_decoded_inst_get_operand_width(const xed_decoded_inst_t* p);
 /// XED_CHIP_INVALID if not set.
 /// @ingroup DEC
 static XED_INLINE xed_chip_enum_t
-xed_decoded_inst_get_input_chip(const xed_decoded_inst_t* p)
-{
+xed_decoded_inst_get_input_chip(const xed_decoded_inst_t* p) {
     return xed3_operand_get_chip(p);
 }
 
@@ -362,9 +339,8 @@ xed_decoded_inst_get_input_chip(const xed_decoded_inst_t* p)
 /// @ingroup DEC
 static XED_INLINE void
 xed_decoded_inst_set_input_chip(xed_decoded_inst_t* p,
-                                xed_chip_enum_t chip)
-{
-    xed3_operand_set_chip(p, chip);
+                                xed_chip_enum_t chip) {
+    xed3_operand_set_chip(p,chip);
 }
 
 
@@ -372,7 +348,7 @@ xed_decoded_inst_set_input_chip(xed_decoded_inst_t* p,
 /// #xed_chip_enum_t chip
 /// @ingroup DEC
 XED_DLL_EXPORT xed_bool_t
-xed_decoded_inst_valid_for_chip(xed_decoded_inst_t const* const p,
+xed_decoded_inst_valid_for_chip(xed_decoded_inst_t const* const p, 
                                 xed_chip_enum_t chip);
 
 //@}
@@ -386,8 +362,7 @@ xed_decoded_inst_valid_for_chip(xed_decoded_inst_t const* const p,
 /// @ingroup DEC
 /// Return the instruction iform enum of type #xed_iform_enum_t .
 static XED_INLINE xed_iform_enum_t
-xed_decoded_inst_get_iform_enum(const xed_decoded_inst_t* p)
-{
+xed_decoded_inst_get_iform_enum(const xed_decoded_inst_t* p) {
     xed_assert(p->_inst != 0);
     return xed_inst_iform_enum(p->_inst);
 }
@@ -398,11 +373,10 @@ xed_decoded_inst_get_iform_enum(const xed_decoded_inst_t* p)
 /// dispatching. The maximum value for a particular iclass is provided by
 /// #xed_iform_max_per_iclass() .
 static XED_INLINE unsigned int
-xed_decoded_inst_get_iform_enum_dispatch(const xed_decoded_inst_t* p)
-{
+xed_decoded_inst_get_iform_enum_dispatch(const xed_decoded_inst_t* p) {
     xed_assert(p->_inst != 0);
     return xed_inst_iform_enum(p->_inst) -
-           xed_iform_first_per_iclass(xed_inst_iclass(p->_inst));
+                xed_iform_first_per_iclass(xed_inst_iclass(p->_inst));
 }
 //@}
 
@@ -429,8 +403,8 @@ xed_decoded_inst_dump(const xed_decoded_inst_t* p, char* buf,  int buflen);
 /// @return Returns 0 if the disassembly fails, 1 otherwise.
 XED_DLL_EXPORT xed_bool_t
 xed_decoded_inst_dump_xed_format(const xed_decoded_inst_t* p,
-                                 char* buf,
-                                 int buflen,
+                                 char* buf, 
+                                 int buflen, 
                                  xed_uint64_t runtime_address) ;
 
 
@@ -460,8 +434,8 @@ xed_format_context(xed_syntax_enum_t syntax,
 /// Disassemble the instruction information to a buffer. See the
 /// #xed_print_info_t for the required public fields of the argument.
 /// This is the preferred method of doing disassembly.
-/// The output buffer must be at least 25 bytes long.
-/// @param pi a #xed_print_info_t
+/// The output buffer must be at least 25 bytes long. 
+/// @param pi a #xed_print_info_t 
 /// @return Returns 0 if the disassembly fails, 1 otherwise.
 XED_DLL_EXPORT xed_bool_t
 xed_format_generic(xed_print_info_t* pi);
@@ -488,17 +462,17 @@ xed_decoded_inst_get_scale(const xed_decoded_inst_t* p,
 /// @ingroup DEC
 XED_DLL_EXPORT xed_int64_t
 xed_decoded_inst_get_memory_displacement(const xed_decoded_inst_t* p,
-        unsigned int mem_idx);
+                                         unsigned int mem_idx);
 /// @ingroup DEC
 /// Result in BYTES
 XED_DLL_EXPORT xed_uint_t
 xed_decoded_inst_get_memory_displacement_width(const xed_decoded_inst_t* p,
-        unsigned int mem_idx);
+                                               unsigned int mem_idx);
 /// @ingroup DEC
 /// Result in BITS
 XED_DLL_EXPORT xed_uint_t
 xed_decoded_inst_get_memory_displacement_width_bits(const xed_decoded_inst_t* p,
-        unsigned int mem_idx);
+                                                    unsigned int mem_idx);
 /// @ingroup DEC
 XED_DLL_EXPORT xed_int32_t
 xed_decoded_inst_get_branch_displacement(const xed_decoded_inst_t* p);
@@ -513,7 +487,7 @@ xed_decoded_inst_get_branch_displacement_width_bits(
     const xed_decoded_inst_t* p);
 /// @ingroup DEC
 XED_DLL_EXPORT xed_uint64_t
-xed_decoded_inst_get_unsigned_immediate(const xed_decoded_inst_t* p);
+xed_decoded_inst_get_unsigned_immediate(const xed_decoded_inst_t* p); 
 /// @ingroup DEC
 /// Return true if the first immediate (IMM0)  is signed
 XED_DLL_EXPORT xed_uint_t
@@ -530,10 +504,9 @@ xed_decoded_inst_get_immediate_width_bits(const xed_decoded_inst_t* p);
 XED_DLL_EXPORT xed_int32_t
 xed_decoded_inst_get_signed_immediate(const xed_decoded_inst_t* p);
 /// @ingroup DEC
-/// Return the second immediate.
+/// Return the second immediate. 
 static XED_INLINE xed_uint8_t
-xed_decoded_inst_get_second_immediate(const xed_decoded_inst_t* p)
-{
+xed_decoded_inst_get_second_immediate(const xed_decoded_inst_t* p) {
     return xed3_operand_get_uimm1(p);
 }
 
@@ -541,21 +514,21 @@ xed_decoded_inst_get_second_immediate(const xed_decoded_inst_t* p)
 /// Return the specified register operand. The specifier is of type
 /// #xed_operand_enum_t .
 XED_DLL_EXPORT xed_reg_enum_t
-xed_decoded_inst_get_reg(const xed_decoded_inst_t* p,
+xed_decoded_inst_get_reg(const xed_decoded_inst_t* p, 
                          xed_operand_enum_t reg_operand);
 
 
-/// See the comment on xed_decoded_inst_uses_rflags(). This can return
+/// See the comment on xed_decoded_inst_uses_rflags(). This can return 
 /// 0 if the flags are really not used by this instruction.
 /// @ingroup DEC
 XED_DLL_EXPORT const xed_simple_flag_t*
-xed_decoded_inst_get_rflags_info(const xed_decoded_inst_t* p);
+xed_decoded_inst_get_rflags_info( const xed_decoded_inst_t* p );
 
 /// This returns 1 if the flags are read or written. This will return 0
 /// otherwise. This will return 0 if the flags are really not used by this
 /// instruction. For some shifts/rotates, XED puts a flags operand in the
 /// operand array before it knows if the flags are used because of
-/// mode-dependent masking effects on the immediate.
+/// mode-dependent masking effects on the immediate. 
 /// @ingroup DEC
 XED_DLL_EXPORT xed_bool_t
 xed_decoded_inst_uses_rflags(const xed_decoded_inst_t* p);
@@ -579,17 +552,17 @@ xed_decoded_inst_conditionally_writes_registers(const xed_decoded_inst_t* p);
 /// returns bytes
 /// @ingroup DEC
 XED_DLL_EXPORT unsigned int
-xed_decoded_inst_get_memory_operand_length(const xed_decoded_inst_t* p,
-        unsigned int memop_idx);
+xed_decoded_inst_get_memory_operand_length(const xed_decoded_inst_t* p, 
+                                           unsigned int memop_idx);
 
 /// Returns the addressing width in bits (16,32,64) for MEM0 (memop_idx==0)
 /// or MEM1 (memop_idx==1). This factors in things like whether or not the
 /// reference is an implicit stack push/pop reference, the machine mode and
 // 67 prefixes if present.
 /// @ingroup DEC
-XED_DLL_EXPORT unsigned int
+XED_DLL_EXPORT unsigned int 
 xed_decoded_inst_get_memop_address_width(const xed_decoded_inst_t* p,
-        xed_uint_t memop_idx);
+                                         xed_uint_t memop_idx);
 
 
 
@@ -597,12 +570,31 @@ xed_decoded_inst_get_memop_address_width(const xed_decoded_inst_t* p,
 /// Returns true if the instruction is a prefetch
 XED_DLL_EXPORT xed_bool_t
 xed_decoded_inst_is_prefetch(const xed_decoded_inst_t* p);
+
+/// @ingroup DEC
+/// Return 1 for broadcast instructions or AVX512 load-op instructions using the broadcast feature
+/// 0 otherwise.  Logical OR of
+/// #xed_decoded_inst_is_broadcast_instruction() and
+/// #xed_decoded_inst_uses_embedded_broadcast().
+XED_DLL_EXPORT xed_bool_t
+xed_decoded_inst_is_broadcast(const xed_decoded_inst_t* p);
+/// @ingroup DEC
+/// Return 1 for broadcast instruction. (NOT including AVX512 load-op instructions)
+/// 0 otherwise. Just a category check. 
+XED_DLL_EXPORT xed_bool_t
+xed_decoded_inst_is_broadcast_instruction(const xed_decoded_inst_t* p);
+/// @ingroup DEC
+/// Return 1 for AVX512 load-op instructions using the broadcast feature,
+/// 0 otherwise. 
+XED_DLL_EXPORT xed_bool_t
+xed_decoded_inst_uses_embedded_broadcast(const xed_decoded_inst_t* p);
+
 //@}
 
-
+                  
 /// @name xed_decoded_inst_t Modification
 //@{
-// Modifying decoded instructions before re-encoding
+// Modifying decoded instructions before re-encoding    
 /// @ingroup DEC
 XED_DLL_EXPORT void
 xed_decoded_inst_set_scale(xed_decoded_inst_t* p, xed_uint_t scale);
@@ -610,14 +602,14 @@ xed_decoded_inst_set_scale(xed_decoded_inst_t* p, xed_uint_t scale);
 /// Set the memory displacement using a BYTE length
 XED_DLL_EXPORT void
 xed_decoded_inst_set_memory_displacement(xed_decoded_inst_t* p,
-        xed_int64_t disp,
-        xed_uint_t length_bytes);
+                                         xed_int64_t disp,
+                                         xed_uint_t length_bytes);
 /// @ingroup DEC
 /// Set the branch  displacement using a BYTE length
 XED_DLL_EXPORT void
 xed_decoded_inst_set_branch_displacement(xed_decoded_inst_t* p,
-        xed_int32_t disp,
-        xed_uint_t length_bytes);
+                                         xed_int32_t disp,
+                                         xed_uint_t length_bytes);
 /// @ingroup DEC
 /// Set the signed immediate a BYTE length
 XED_DLL_EXPORT void
@@ -636,26 +628,26 @@ xed_decoded_inst_set_immediate_unsigned(xed_decoded_inst_t* p,
 /// Set the memory displacement a BITS length
 XED_DLL_EXPORT void
 xed_decoded_inst_set_memory_displacement_bits(xed_decoded_inst_t* p,
-        xed_int64_t disp,
-        xed_uint_t length_bits);
+                                              xed_int64_t disp,
+                                              xed_uint_t length_bits);
 /// @ingroup DEC
 /// Set the branch displacement a BITS length
 XED_DLL_EXPORT void
 xed_decoded_inst_set_branch_displacement_bits(xed_decoded_inst_t* p,
-        xed_int32_t disp,
-        xed_uint_t length_bits);
+                                              xed_int32_t disp,
+                                              xed_uint_t length_bits);
 /// @ingroup DEC
 /// Set the signed immediate a BITS length
 XED_DLL_EXPORT void
 xed_decoded_inst_set_immediate_signed_bits(xed_decoded_inst_t* p,
-        xed_int32_t x,
-        xed_uint_t length_bits);
+                                           xed_int32_t x,
+                                           xed_uint_t length_bits);
 /// @ingroup DEC
 /// Set the unsigned immediate a BITS length
 XED_DLL_EXPORT void
 xed_decoded_inst_set_immediate_unsigned_bits(xed_decoded_inst_t* p,
-        xed_uint64_t x,
-        xed_uint_t length_bits);
+                                             xed_uint64_t x,
+                                             xed_uint_t length_bits);
 
 //@}
 
@@ -664,21 +656,36 @@ xed_decoded_inst_set_immediate_unsigned_bits(xed_decoded_inst_t* p,
 /// @ingroup DEC
 /// Return a user data field for arbitrary use by the user after decoding.
 static XED_INLINE  xed_uint64_t
-xed_decoded_inst_get_user_data(xed_decoded_inst_t* p)
-{
+xed_decoded_inst_get_user_data(xed_decoded_inst_t* p) {
     return p->u.user_data;
 }
 /// @ingroup DEC
 /// Modify the user data field.
 static XED_INLINE  void
 xed_decoded_inst_set_user_data(xed_decoded_inst_t* p,
-                               xed_uint64_t new_value)
-{
+                               xed_uint64_t new_value) {
     p->u.user_data = new_value;
 }
+//@}
 
-
-
+/// @name xed_decoded_inst_t Classifiers
+//@{
+/// @ingroup DEC
+/// True for AVX512 (EVEX-encoded) SIMD and (VEX encoded) K-mask instructions
+XED_DLL_EXPORT xed_bool_t
+xed_classify_avx512(const xed_decoded_inst_t* d);
+/// @ingroup DEC
+/// True for AVX512 (VEX-encoded) K-mask operations
+XED_DLL_EXPORT xed_bool_t
+xed_classify_avx512_maskop(const xed_decoded_inst_t* d);
+/// @ingroup DEC
+/// True for AVX/AVX2 SIMD VEX-encoded operations. Does not include BMI/BMI2 instructions.
+XED_DLL_EXPORT xed_bool_t
+xed_classify_avx(const xed_decoded_inst_t* d);
+/// @ingroup DEC
+/// True for SSE/SSE2/etc. SIMD operations.  Includes AES and PCLMULQDQ
+XED_DLL_EXPORT xed_bool_t
+xed_classify_sse(const xed_decoded_inst_t* d);
 
 //@}
 #endif

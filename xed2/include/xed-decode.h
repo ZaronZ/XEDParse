@@ -1,47 +1,35 @@
-/*BEGIN_LEGAL
-Intel Open Source License
+/*BEGIN_LEGAL 
 
-Copyright (c) 2002-2015 Intel Corporation. All rights reserved.
+Copyright (c) 2018 Intel Corporation
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are
-met:
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-Redistributions of source code must retain the above copyright notice,
-this list of conditions and the following disclaimer.  Redistributions
-in binary form must reproduce the above copyright notice, this list of
-conditions and the following disclaimer in the documentation and/or
-other materials provided with the distribution.  Neither the name of
-the Intel Corporation nor the names of its contributors may be used to
-endorse or promote products derived from this software without
-specific prior written permission.
+      http://www.apache.org/licenses/LICENSE-2.0
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE INTEL OR
-ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  
 END_LEGAL */
-/// @file xed-decode.h
+/// @file xed-decode.h 
 
 
-#ifndef _XED_DECODE_H_
-# define _XED_DECODE_H_
+#ifndef XED_DECODE_H
+# define XED_DECODE_H
 
 #include "xed-decoded-inst.h"
 #include "xed-error-enum.h"
+#include "xed-chip-features.h"
 
 /// This is the main interface to the decoder.
 ///  @param xedd the decoded instruction of type #xed_decoded_inst_t . Mode/state sent in via xedd; See the #xed_state_t
 ///  @param itext the pointer to the array of instruction text bytes
 ///  @param bytes  the length of the itext input array. 1 to 15 bytes, anything more is ignored.
-///  @return #xed_error_enum_t indiciating success (#XED_ERROR_NONE) or failure. Note failure can be due to not
+///  @return #xed_error_enum_t indicating success (#XED_ERROR_NONE) or failure. Note failure can be due to not
 ///  enough bytes in the input array.
 ///
 /// The maximum instruction is 15B and XED will tell you how long the
@@ -57,13 +45,24 @@ END_LEGAL */
 /// to decode with more bytes.  Also sometimes the user process does not
 /// have read access to the next page and this allows the user to prevent
 /// XED from causing process termination by limiting the memory range that
-/// XED will access.
+/// XED will access.  
 ///
 /// @ingroup DEC
 XED_DLL_EXPORT xed_error_enum_t
-xed_decode(xed_decoded_inst_t* xedd,
-           const xed_uint8_t* itext,
+xed_decode(xed_decoded_inst_t* xedd, 
+           const xed_uint8_t* itext, 
            const unsigned int bytes);
+
+/// @ingroup DEC
+/// See #xed_decode(). This version of the decode API adds a CPUID feature
+/// vector to support restricting decode based on both a specified chip via
+/// #xed_decoded_inst_set_input_chip() and a modify-able cpuid feature
+/// vector obtained from #xed_get_chip_features().
+XED_DLL_EXPORT xed_error_enum_t
+xed_decode_with_features(xed_decoded_inst_t* xedd, 
+                         const xed_uint8_t* itext, 
+                         const unsigned int bytes,
+                         xed_chip_features_t* features);
 
 
 #endif

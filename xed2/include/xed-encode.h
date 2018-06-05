@@ -1,38 +1,25 @@
-/*BEGIN_LEGAL
-Intel Open Source License
+/*BEGIN_LEGAL 
 
-Copyright (c) 2002-2015 Intel Corporation. All rights reserved.
+Copyright (c) 2018 Intel Corporation
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are
-met:
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-Redistributions of source code must retain the above copyright notice,
-this list of conditions and the following disclaimer.  Redistributions
-in binary form must reproduce the above copyright notice, this list of
-conditions and the following disclaimer in the documentation and/or
-other materials provided with the distribution.  Neither the name of
-the Intel Corporation nor the names of its contributors may be used to
-endorse or promote products derived from this software without
-specific prior written permission.
+      http://www.apache.org/licenses/LICENSE-2.0
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE INTEL OR
-ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  
 END_LEGAL */
 /// @file xed-encode.h
 
 
-#ifndef _XED_ENCODE_H_
-# define _XED_ENCODE_H_
+#ifndef XED_ENCODE_H
+# define XED_ENCODE_H
 #include "xed-common-hdrs.h"
 #include "xed-types.h"
 #include "xed-error-enum.h"
@@ -42,35 +29,33 @@ END_LEGAL */
 #include "xed-encoder-gen-defs.h" //generated
 
 // we now (mostly) share the decode data structure
-#include "xed-decoded-inst.h"
+#include "xed-decoded-inst.h" 
 
 
-// establish a type equivalence for the xed_encoder_request_t and the corresponding xed_decoded_inst_t.
-
-/// @ingroup ENC
-typedef struct  xed_decoded_inst_s xed_encoder_request_s;
-/// @ingroup ENC
-typedef xed_decoded_inst_t xed_encoder_request_t;
-
-
+// establish a type equivalence for the xed_encoder_request_t and the
+// corresponding xed_decoded_inst_t.
 
 /// @ingroup ENC
-XED_DLL_EXPORT xed_iclass_enum_t
-xed_encoder_request_get_iclass(const xed_encoder_request_t* p);
+typedef struct  xed_decoded_inst_s xed_encoder_request_s; 
+/// @ingroup ENC
+typedef xed_decoded_inst_t xed_encoder_request_t; 
+
+
+
+/// @ingroup ENC
+XED_DLL_EXPORT xed_iclass_enum_t 
+xed_encoder_request_get_iclass( const xed_encoder_request_t* p);
 
 /////////////////////////////////////////////////////////
 // set functions
 
 /// @ingroup ENC
-XED_DLL_EXPORT void
-xed_encoder_request_set_iclass(xed_encoder_request_t* p,
-                               xed_iclass_enum_t iclass);
+XED_DLL_EXPORT void  
+xed_encoder_request_set_iclass( xed_encoder_request_t* p, 
+                                xed_iclass_enum_t iclass);
 
 /// @name Prefixes
 //@{
-/// @ingroup ENC
-/// For locked (atomic read-modify-write) memops requests.
-XED_DLL_EXPORT void xed_encoder_request_set_lock(xed_encoder_request_t* p);
 /// @ingroup ENC
 /// for  REPNE(F2) prefix on string ops
 XED_DLL_EXPORT void xed_encoder_request_set_repne(xed_encoder_request_t* p);
@@ -86,12 +71,12 @@ XED_DLL_EXPORT void xed_encoder_request_clear_rep(xed_encoder_request_t* p);
 //@{
 /// @ingroup ENC
 XED_DLL_EXPORT void
-xed_encoder_request_set_effective_operand_width(xed_encoder_request_t* p,
-        xed_uint_t width_bits);
+xed_encoder_request_set_effective_operand_width( xed_encoder_request_t* p, 
+                                                 xed_uint_t width_bits);
 /// @ingroup ENC
 XED_DLL_EXPORT void
-xed_encoder_request_set_effective_address_size(xed_encoder_request_t* p,
-        xed_uint_t width_bits);
+xed_encoder_request_set_effective_address_size( xed_encoder_request_t* p, 
+                                                xed_uint_t width_bits);
 /*! @ingroup ENC
  *
  * Set the operands array element indexed by operand to the actual register
@@ -102,14 +87,14 @@ xed_encoder_request_set_effective_address_size(xed_encoder_request_t* p,
  * @param[in] reg          the actual register represented (EAX, etc.)  to store.
  */
 XED_DLL_EXPORT void xed_encoder_request_set_reg(xed_encoder_request_t* p,
-        xed_operand_enum_t operand,
-        xed_reg_enum_t reg);
+                                                xed_operand_enum_t operand, 
+                                                xed_reg_enum_t reg);
 //@}
 
 /// @name Operand Order
 //@{
 /*! @ingroup ENC
- * Specify the name as the n'th operand in the operand order.
+ * Specify the name as the n'th operand in the operand order. 
  *
  * The complication of this function is that the register operand names are
  * specific to the position of the operand (REG0, REG1, REG2...). One can
@@ -122,24 +107,24 @@ XED_DLL_EXPORT void xed_encoder_request_set_reg(xed_encoder_request_t* p,
  * @param[in] name             #xed_operand_enum_t operand name.
  */
 XED_DLL_EXPORT void
-xed_encoder_request_set_operand_order(xed_encoder_request_t* p,
-                                      xed_uint_t operand_index,
+xed_encoder_request_set_operand_order(xed_encoder_request_t* p, 
+                                      xed_uint_t operand_index, 
                                       xed_operand_enum_t name);
 
 /*! @ingroup ENC
- * Retreive the name of the n'th operand in the operand order.
+ * Retrieve the name of the n'th operand in the operand order. 
  *
  * @param[in] p                #xed_encoder_request_t
  * @param[in] operand_index    xed_uint_t representing n'th operand position
  * @return The #xed_operand_enum_t operand name.
  */
 XED_DLL_EXPORT xed_operand_enum_t
-xed_encoder_request_get_operand_order(xed_encoder_request_t* p,
+xed_encoder_request_get_operand_order(xed_encoder_request_t* p, 
                                       xed_uint_t operand_index);
-
+                                                                        
 
 /// @ingroup ENC
-/// Retreive the number of entries in the encoder operand order array
+/// Retrieve the number of entries in the encoder operand order array
 /// @return The number of entries in the encoder operand order array
 static XED_INLINE xed_uint_t
 xed_encoder_request_operand_order_entries(xed_encoder_request_t* p)
@@ -157,8 +142,8 @@ XED_DLL_EXPORT void xed_encoder_request_set_relbr(xed_encoder_request_t* p);
 /// @ingroup ENC
 XED_DLL_EXPORT void
 xed_encoder_request_set_branch_displacement(xed_encoder_request_t* p,
-        xed_int32_t brdisp,
-        xed_uint_t nbytes);
+                                            xed_int32_t brdisp,
+                                            xed_uint_t nbytes);
 /// @ingroup ENC
 XED_DLL_EXPORT void xed_encoder_request_set_ptr(xed_encoder_request_t* p);
 //@}
@@ -169,29 +154,29 @@ XED_DLL_EXPORT void xed_encoder_request_set_ptr(xed_encoder_request_t* p);
 /// @ingroup ENC
 /// Set the uimm0 using a BYTE  width.
 XED_DLL_EXPORT void xed_encoder_request_set_uimm0(xed_encoder_request_t* p,
-        xed_uint64_t uimm,
-        xed_uint_t nbytes);
+                                                  xed_uint64_t uimm,
+                                                  xed_uint_t nbytes);
 /// @ingroup ENC
 /// Set the uimm0 using a BIT  width.
 XED_DLL_EXPORT void xed_encoder_request_set_uimm0_bits(xed_encoder_request_t* p,
-        xed_uint64_t uimm,
-        xed_uint_t nbits);
+                                                       xed_uint64_t uimm,
+                                                       xed_uint_t nbits);
 /// @ingroup ENC
 XED_DLL_EXPORT void xed_encoder_request_set_uimm1(xed_encoder_request_t* p,
-        xed_uint8_t uimm);
+                                                  xed_uint8_t uimm);
 /// @ingroup ENC
 /// same storage as uimm0
 XED_DLL_EXPORT void xed_encoder_request_set_simm(xed_encoder_request_t* p,
-        xed_int32_t simm,
-        xed_uint_t nbytes);
+                                                 xed_int32_t simm,
+                                                 xed_uint_t nbytes);
 
 /// @name Memory
 //@{
 /// @ingroup ENC
 XED_DLL_EXPORT void
 xed_encoder_request_set_memory_displacement(xed_encoder_request_t* p,
-        xed_int64_t memdisp,
-        xed_uint_t nbytes);
+                                            xed_int64_t memdisp,
+                                            xed_uint_t nbytes);
 
 /// @ingroup ENC
 XED_DLL_EXPORT void xed_encoder_request_set_agen(xed_encoder_request_t* p);
@@ -202,22 +187,22 @@ XED_DLL_EXPORT void xed_encoder_request_set_mem1(xed_encoder_request_t* p);
 /// @ingroup ENC
 XED_DLL_EXPORT void
 xed_encoder_request_set_memory_operand_length(xed_encoder_request_t* p,
-        xed_uint_t nbytes);
+                                              xed_uint_t nbytes);
 /// @ingroup ENC
 XED_DLL_EXPORT void xed_encoder_request_set_seg0(xed_encoder_request_t* p,
-        xed_reg_enum_t seg_reg);
+                                  xed_reg_enum_t seg_reg);
 /// @ingroup ENC
 XED_DLL_EXPORT void xed_encoder_request_set_seg1(xed_encoder_request_t* p,
-        xed_reg_enum_t seg_reg);
+                                  xed_reg_enum_t seg_reg);
 /// @ingroup ENC
 XED_DLL_EXPORT void xed_encoder_request_set_base0(xed_encoder_request_t* p,
-        xed_reg_enum_t base_reg);
+                                   xed_reg_enum_t base_reg);
 /// @ingroup ENC
 XED_DLL_EXPORT void xed_encoder_request_set_base1(xed_encoder_request_t* p,
-        xed_reg_enum_t base_reg) ;
+                                   xed_reg_enum_t base_reg) ;
 /// @ingroup ENC
 XED_DLL_EXPORT void xed_encoder_request_set_index(xed_encoder_request_t* p,
-        xed_reg_enum_t index_reg);
+                                   xed_reg_enum_t index_reg);
 /// @ingroup ENC
 XED_DLL_EXPORT void
 xed_encoder_request_set_scale(xed_encoder_request_t* p,
@@ -257,9 +242,9 @@ xed_encoder_request_init_from_decode(struct xed_decoded_inst_s* d);
 
 /// @name String Printing
 //@{
-/// @ingroup ENC
-XED_DLL_EXPORT void xed_encode_request_print(const xed_encoder_request_t* p,
-        char* buf, xed_uint_t buflen);
+/// @ingroup ENC        
+XED_DLL_EXPORT void xed_encode_request_print(const xed_encoder_request_t* p, 
+                                             char* buf, xed_uint_t buflen);
 //@}
 
 
@@ -268,7 +253,7 @@ XED_DLL_EXPORT void xed_encode_request_print(const xed_encoder_request_t* p,
 /// @name Encoding
 //@{
 ///   This is the main interface to the encoder. The array should be
-///   at most 15 bytes long. The ilen parameter should indiciate
+///   at most 15 bytes long. The ilen parameter should indicate
 ///   this length. If the array is too short, the encoder may fail to
 ///   encode the request.  Failure is indicated by a return value of
 ///   type #xed_error_enum_t that is not equal to
@@ -283,7 +268,7 @@ XED_DLL_EXPORT void xed_encode_request_print(const xed_encoder_request_t* p,
 /// @ingroup ENC
 XED_DLL_EXPORT xed_error_enum_t
 xed_encode(xed_encoder_request_t* r,
-           xed_uint8_t* array,
+           xed_uint8_t* array, 
            const unsigned int ilen,
            unsigned int* olen);
 
@@ -295,7 +280,7 @@ xed_encode(xed_encoder_request_t* r,
 /// @return success/failure as a #xed_error_enum_t
 /// @ingroup ENC
 XED_DLL_EXPORT xed_error_enum_t
-xed_encode_nop(xed_uint8_t* array,
+xed_encode_nop(xed_uint8_t* array, 
                const unsigned int ilen);
 //@}
 
